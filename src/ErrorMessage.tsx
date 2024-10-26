@@ -3,7 +3,7 @@ export const ErrorMessage = ({
   show,
 }: {
   message: string;
-  show: boolean;
+  show: boolean | null;
 }) => {
   return show ? <div className="error-message">{message}</div> : <div></div>;
 };
