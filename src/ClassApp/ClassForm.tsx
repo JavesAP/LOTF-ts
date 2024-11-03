@@ -1,8 +1,10 @@
-import { Component } from "react";
+import { ChangeEvent, Component } from "react";
 import { ErrorMessage } from "../ErrorMessage";
 import { PhoneInput, UserInformation } from "../types";
-import { ClassPhoneInput, ClassTextInput } from "./ClassCustromComp";
+import { ClassPhoneInput } from "./InputComponents/phoneInput";
 import { isEmailValid, isPhoneInputValid, isTextInputValid, isValidCity, validFormCheck } from "../utils/validations";
+import { ClassOptionInput } from "./InputComponents/optionalInput";
+import { ClassTextInput } from "./InputComponents/textInput";
 
 const firstNameErrorMessage = "First name must be at least 2 characters long";
 const lastNameErrorMessage = "Last name must be at least 2 characters long";
@@ -31,6 +33,10 @@ export class ClassForm extends Component<{
 
   setDraftUserInfo = (obj: UserInformation) => {
     this.setState({draftUserInfo: obj})
+  }
+
+  optionInputOnChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+    this.setState({draftUserInfo: {...this.state.draftUserInfo, city: e.target.value}})
   }
 
   showError = (input: keyof UserInformation) => {
@@ -116,15 +122,10 @@ export class ClassForm extends Component<{
           }}
         />
         <ErrorMessage message={emailErrorMessage} show={!isValid && this.showError('email')} />
-        <ClassTextInput 
+        <ClassOptionInput 
           label={"City"} 
-          inputProps={{
-            onChange: (e) => {
-              this.setState({draftUserInfo: {...draftUserInfo, city: e.target.value}})
-            },
-            value: city,
-            placeholder: "Hobbiton"
-          }}
+          onChange={this.optionInputOnChangeHandler}
+          value={city}
         />
         <ErrorMessage message={cityErrorMessage} show={!isValid && this.showError('city')} />
         <ClassPhoneInput 

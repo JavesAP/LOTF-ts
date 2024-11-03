@@ -1,17 +1,5 @@
 import { ChangeEventHandler, Dispatch, SetStateAction, useRef } from "react"
-import { InputProps, PhoneInput, UserInformation } from "../types"
-
-export const FunctionalTextInput = ({label, inputProps}: {
-  label: string
-  inputProps: InputProps
-}) => {
-  return (
-    <div className="input-wrap">
-      <label>{label}:</label>
-      <input {...inputProps}/>
-    </div>
-  )
-}
+import { PhoneInput, UserInformation } from "../../types"
 
 export const FunctionalPhoneInput = ({phoneInput, setPhoneInput, setDraftUserInfo}: {
   phoneInput: PhoneInput

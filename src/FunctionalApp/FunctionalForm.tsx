@@ -1,8 +1,10 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { ErrorMessage } from "../ErrorMessage";
 import { PhoneInput, UserInformation } from "../types";
-import { FunctionalPhoneInput, FunctionalTextInput } from "./customComponents";
+import { FunctionalPhoneInput } from "./InputComponents/phoneInput";
 import { isEmailValid, validFormCheck, isPhoneInputValid, isTextInputValid, isValidCity } from "../utils/validations";
+import { FunctionalTextInput } from "./InputComponents/textInput";
+import { FunctionalOptionInput } from "./InputComponents/optionalInput";
 
 const firstNameErrorMessage = "First name must be at least 2 characters long";
 const lastNameErrorMessage = "Last name must be at least 2 characters long";
@@ -29,6 +31,10 @@ export const FunctionalForm = ({phoneState, setUserInformation}: {
 
   const { phoneInput, setPhoneInput } = phoneState
   const { firstName, lastName, email, city, phone } = draftUserInfo
+
+  const optionInputOnChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDraftUserInfo({...draftUserInfo, city: e.target.value})
+  }
 
   const showFirstNameError = !isTextInputValid(firstName) && isSubmitted
   const showLastNameError = !isTextInputValid(lastName) && isSubmitted
@@ -95,16 +101,11 @@ export const FunctionalForm = ({phoneState, setUserInformation}: {
         }}
       />      
       <ErrorMessage message={emailErrorMessage} show={invalidForm && showEmailError} />
-      <FunctionalTextInput 
-        label={"City"} 
-        inputProps={{
-          onChange: (e) => {
-            setDraftUserInfo({...draftUserInfo, city: e.target.value})
-          },
-          value: city,
-          placeholder: "Hobbiton"
-        }}
-      />      
+      <FunctionalOptionInput 
+        label={'city'} 
+        onChange={optionInputOnChangeHandler}
+        value={city}
+      />     
       <ErrorMessage message={cityErrorMessage} show={invalidForm && showCityError} />
       <FunctionalPhoneInput 
         phoneInput={ phoneInput } 

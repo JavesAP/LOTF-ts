@@ -7,14 +7,6 @@ type State = {
   phoneInput: PhoneInput
 };
 
-const defaultUser: UserInformation = {
-  email: "default@default.com",
-  firstName: "Default",
-  lastName: "Default",
-  phone: "1234567",
-  city: "Hobbiton",
-};
-
 export class ClassApp extends Component<Record<string, never>, State> {
   state: State = {
     userInformation: null,
@@ -34,11 +26,7 @@ export class ClassApp extends Component<Record<string, never>, State> {
     return (
       <>
         <h2>Class</h2>
-        <ProfileInformation 
-          userData={
-            userInformation ? userInformation : defaultUser
-          }
-        />
+        <ProfileInformation userData={userInformation}/>
         <ClassForm 
           phoneInputState={{phoneInput, setPhoneInput: this.setPhoneInput}}
           setUserInformation={ this.setUserInformation }

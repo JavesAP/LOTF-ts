@@ -12,7 +12,7 @@ export const isTextInputValid = (text: string) => {
 }
 
 export const isValidCity = (givenCity: string) => {
-  return allCities.includes(givenCity.replace(/\b\w/g, (letter) => letter.toUpperCase()))
+  return allCities.includes(givenCity)
 }
 
 export const isPhoneInputValid = (phoneNumber: string) => {
